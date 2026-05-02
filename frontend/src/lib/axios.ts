@@ -1,8 +1,15 @@
 import axios from 'axios';
 
 let baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+
+// Robust URL handling
 if (baseUrl && !baseUrl.startsWith('http') && !baseUrl.startsWith('/')) {
   baseUrl = `https://${baseUrl}`;
+}
+
+// Ensure it ends with /api if it's a full URL and missing the prefix
+if (baseUrl.startsWith('http') && !baseUrl.endsWith('/api') && !baseUrl.endsWith('/api/')) {
+  baseUrl = baseUrl.replace(/\/$/, '') + '/api';
 }
 
 const api = axios.create({

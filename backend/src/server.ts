@@ -58,7 +58,15 @@ if (frontendUrl && !frontendUrl.startsWith('http')) {
 frontendUrl = frontendUrl.replace(/\/$/, '');
 
 app.use(cors({
-  origin: [frontendUrl, 'http://localhost:3000'],
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true);
+    const allowedOrigins = [frontendUrl, 'http://localhost:3000'];
+    if (allowedOrigins.indexOf(origin) !== -1 || origin.includes('railway.app')) {
+      callback(null, true);
+    } else {
+      callback(null, false); // Block other origins
+    }
+  },
   credentials: true
 }));
 
