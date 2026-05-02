@@ -59,15 +59,21 @@ frontendUrl = frontendUrl.replace(/\/$/, '');
 
 app.use(cors({
   origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl)
     if (!origin) return callback(null, true);
-    const allowedOrigins = [frontendUrl, 'http://localhost:3000'];
-    if (allowedOrigins.indexOf(origin) !== -1 || origin.includes('railway.app')) {
+    
+    const isRailway = origin.endsWith('.railway.app');
+    const isLocal = origin === 'http://localhost:3000' || origin === 'http://localhost:5173' || origin === 'http://localhost:5174';
+    const isAllowed = origin === frontendUrl || origin === frontendUrl + '/';
+
+    if (isRailway || isLocal || isAllowed) {
       callback(null, true);
     } else {
-      callback(null, false); // Block other origins
+      callback(new Error('Not allowed by CORS'));
     }
   },
-  credentials: true
+  credentials: true,
+  optionsSuccessStatus: 200
 }));
 
 import authRoutes from './routes/authRoutes';
