@@ -1,20 +1,16 @@
 import axios from 'axios';
-// v1.0.2 - Deployment Cache Buster
 
-let baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+let baseUrl = process.env.NEXT_PUBLIC_API_URL?.trim() || 'http://localhost:5000/api';
 
-// Robust URL handling
-if (baseUrl && !baseUrl.startsWith('http') && !baseUrl.startsWith('/')) {
+if (!baseUrl.startsWith('http') && !baseUrl.startsWith('/')) {
   baseUrl = `https://${baseUrl}`;
 }
 
-// Ensure it ends with /api/ (with trailing slash)
-if (baseUrl.startsWith('http')) {
-  baseUrl = baseUrl.replace(/\/$/, '');
-  if (!baseUrl.endsWith('/api')) {
-    baseUrl = baseUrl + '/api/';
-  } else {
-    baseUrl = baseUrl + '/';
+baseUrl = baseUrl.replace(/\/+$/, '');
+
+if (!baseUrl.endsWith('/api')) {
+  if (!baseUrl.includes('/api')) {
+    baseUrl = `${baseUrl}/api`;
   }
 }
 
