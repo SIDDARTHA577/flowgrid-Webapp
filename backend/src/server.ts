@@ -50,31 +50,12 @@ app.use(helmet());
 // Prevent NoSQL injections (causing getter TypeError in current Node/Express environment)
 // app.use(mongoSanitize());
 
-// Enable CORS with robust origin handling
-let frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3000';
-if (frontendUrl && !frontendUrl.startsWith('http')) {
-  frontendUrl = `https://${frontendUrl}`;
-}
-frontendUrl = frontendUrl.replace(/\/$/, '');
-
+// Enable CORS for all origins
 app.use(cors({
-  origin: function (origin, callback) {
-    // Allow requests with no origin (like mobile apps or curl)
-    if (!origin) return callback(null, true);
-    
-    const isRailway = origin.endsWith('.railway.app');
-    const isLocal = origin === 'http://localhost:3000' || origin === 'http://localhost:5173' || origin === 'http://localhost:5174';
-    const isAllowed = origin === frontendUrl || origin === frontendUrl + '/';
-
-    if (isRailway || isLocal || isAllowed) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
+  origin: true,
   credentials: true,
-  optionsSuccessStatus: 200
 }));
+app.options(/.*/, cors());
 
 import authRoutes from './routes/authRoutes';
 import projectRoutes from './routes/projectRoutes';
