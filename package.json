@@ -4,5 +4,9 @@
   "workspaces": [
     "frontend",
     "backend"
-  ]
+  ],
+  "scripts": {
+    "build": "npm run build --prefix backend",
+    "start": "npm start --prefix backend"
+  }
 }
