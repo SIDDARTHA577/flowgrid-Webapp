@@ -1,13 +1,13 @@
 import axios from 'axios';
 
-const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api',
-  withCredentials: true,
-});
+let baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+if (baseUrl && !baseUrl.startsWith('http') && !baseUrl.startsWith('/')) {
+  baseUrl = `https://${baseUrl}`;
+}
 
-// Debugging interceptor
-api.interceptors.request.use((config) => {
-  return config;
+const api = axios.create({
+  baseURL: baseUrl,
+  withCredentials: true,
 });
 
 // Interceptor to handle 401 Unauthorized errors globally

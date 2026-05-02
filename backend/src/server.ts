@@ -51,7 +51,13 @@ app.use(helmet());
 // app.use(mongoSanitize());
 
 // Enable CORS with robust origin handling
-const frontendUrl = process.env.FRONTEND_URL ? process.env.FRONTEND_URL.replace(/\/$/, '') : 'http://localhost:3000';
+// Enable CORS with robust origin handling
+let frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3000';
+if (frontendUrl && !frontendUrl.startsWith('http')) {
+  frontendUrl = `https://${frontendUrl}`;
+}
+frontendUrl = frontendUrl.replace(/\/$/, '');
+
 app.use(cors({
   origin: [frontendUrl, 'http://localhost:3000'],
   credentials: true
