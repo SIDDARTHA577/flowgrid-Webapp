@@ -11,8 +11,15 @@ dotenv.config();
 import { connectDB } from './config/db';
 
 // Validate essential env vars
+const requiredEnvVars = ['MONGO_URI', 'JWT_SECRET', 'FRONTEND_URL'];
+requiredEnvVars.forEach(varName => {
+  if (!process.env[varName]) {
+    console.warn(`⚠️ WARNING: ${varName} is not defined. This may cause issues in production.`);
+  }
+});
+
 if (!process.env.MONGO_URI) {
-  console.error('CRITICAL ERROR: MONGO_URI is not defined. App cannot start.');
+  console.error('CRITICAL ERROR: MONGO_URI is missing. App cannot connect to database.');
   process.exit(1);
 }
 
@@ -43,9 +50,10 @@ app.use(helmet());
 // Prevent NoSQL injections (causing getter TypeError in current Node/Express environment)
 // app.use(mongoSanitize());
 
-// Enable CORS
+// Enable CORS with robust origin handling
+const frontendUrl = process.env.FRONTEND_URL ? process.env.FRONTEND_URL.replace(/\/$/, '') : 'http://localhost:3000';
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+  origin: [frontendUrl, 'http://localhost:3000'],
   credentials: true
 }));
 
