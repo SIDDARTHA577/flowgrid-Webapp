@@ -1,0 +1,17 @@
+[build]
+builder = "NIXPACKS"
+
+[deploy]
+startCommand = "npm start"
+healthcheckPath = "/"
+healthcheckTimeout = 100
+
+[services.backend]
+buildCommand = "npm run build"
+startCommand = "npm start"
+watch = [ "src/**" ]
+
+[services.frontend]
+buildCommand = "npm run build"
+startCommand = "npm start"
+watch = [ "src/**", "public/**" ]
