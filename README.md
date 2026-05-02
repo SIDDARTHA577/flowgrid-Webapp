@@ -1,43 +1,126 @@
-# TaskFlow Team Task Manager
+# 🚀 Ethara.AI / Flowgrid Task Manager
 
-A production-grade, full-stack team task manager built for the Ethara.AI Round 1 placement selection process.
+A production-grade, full-stack team task manager built for the **Ethara.AI Round 1** placement selection process. Flowgrid is designed to streamline project management, role-based task delegation, and timeline tracking.
 
-## Features
-- **Secure Authentication:** JWT with HttpOnly cookies, refresh token rotation, rate limiting, and CAPTCHA support.
-- **Role-Based Access Control:** Admin and Member roles with secure backend middleware.
-- **Project & Task Management:** Create projects, invite team members, assign tasks, and track statuses.
-- **Interactive Dashboard:** Modern UI built with Next.js, Tailwind CSS, ShadCN, and Framer Motion.
-- **Robust Security:** Built-in protection against brute-force attacks, XSS, MongoDB injection, and more.
+## ✨ Features
+- **Secure Authentication:** JWT with HttpOnly cookies, refresh token rotation, rate limiting, and protection against common web vulnerabilities (XSS, MongoDB Injection).
+- **Role-Based Access Control (RBAC):** Admin and Member roles with secure, verified backend middleware routing.
+- **Project & Task Management:** Create and track projects, invite team members, assign tasks with rich details, and manage lifecycle statuses.
+- **Interactive & Dynamic Dashboard:** Modern, fluid UI built with React 19, Next.js App Router, Tailwind CSS 4, and Framer Motion for micro-animations.
+- **Type-Safe Full Stack:** End-to-end TypeScript safety with Zod for robust data validation.
 
-## Tech Stack
-- **Frontend:** Next.js (App Router), TypeScript, Tailwind CSS, ShadCN/UI, Zustand, Axios, Framer Motion.
-- **Backend:** Node.js, Express.js, TypeScript, Mongoose.
-- **Database:** MongoDB Atlas.
-- **Deployment:** Railway.
+---
 
+## 🛠️ Tech Stack
 
-## Folder Structure
-- `/frontend` - Next.js application
-- `/backend` - Express.js API
+### **Frontend**
+- **Framework:** Next.js 16 (App Router) + React 19
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS v4, ShadCN UI
+- **State Management:** Zustand
+- **Animations:** Framer Motion
+- **Data Fetching & Validation:** Axios, Zod, React Hook Form
 
-## Deployment to Railway
+### **Backend**
+- **Framework:** Node.js, Express.js v5
+- **Language:** TypeScript
+- **Database:** MongoDB Atlas + Mongoose
+- **Security:** Helmet, Express Rate Limit, Express Mongo Sanitize, bcrypt, jsonwebtoken
 
-This is a monorepo. To deploy to Railway:
+---
 
-1. **Deploy Backend Service:**
-   - Create a new service from this repo.
-   - Set **Root Directory** to `backend`.
-   - Add Environment Variables:
-     - `MONGO_URI`: (Your MongoDB Atlas connection string)
-     - `JWT_SECRET`: (Any secure random string)
-     - `FRONTEND_URL`: (Your frontend domain after deploying step 2)
+## 📁 Folder Structure
 
-2. **Deploy Frontend Service:**
-   - Create another service from this repo.
-   - Set **Root Directory** to `frontend`.
-   - Add Environment Variables:
-     - `NEXT_PUBLIC_API_URL`: (Your backend domain + `/api`)
+```text
+Ethara AI/
+├── backend/            # Express.js API server
+│   ├── src/
+│   │   ├── controllers/# Route handlers
+│   │   ├── middleware/ # Auth, RBAC, error handling
+│   │   ├── models/     # Mongoose schemas
+│   │   ├── routes/     # Express routes
+│   │   └── server.ts   # Entry point
+│   ├── package.json
+│   └── tsconfig.json
+├── frontend/           # Next.js web application
+│   ├── src/
+│   │   ├── app/        # Next.js App Router
+│   │   ├── components/ # Reusable UI components
+│   │   ├── store/      # Zustand stores
+│   │   └── lib/        # Utility functions & Axios config
+│   ├── package.json
+│   └── tailwind.config.ts
+└── package.json        # Workspace root package
+```
 
-3. **Networking:**
-   - Ensure both services have "Generate Domain" enabled in the Networking tab.
-   - Update the `FRONTEND_URL` in the backend service with the domain generated for the frontend.
+---
+
+## 🚀 Getting Started Locally
+
+### 1. Prerequisites
+- Node.js (v20+ recommended)
+- MongoDB Atlas cluster (or local MongoDB instance)
+- Git
+
+### 2. Installation
+Clone the repository and install dependencies from the root:
+```bash
+git clone <repository-url>
+cd "Ethara AI"
+npm install --prefix frontend
+npm install --prefix backend
+```
+
+### 3. Environment Variables
+Create a `.env` file in **both** the `frontend` and `backend` directories.
+
+**`backend/.env`**
+```env
+PORT=5000
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_super_secret_key
+FRONTEND_URL=http://localhost:3000
+NODE_ENV=development
+```
+
+**`frontend/.env`**
+```env
+NEXT_PUBLIC_API_URL=http://localhost:5000/api
+```
+
+### 4. Running the Development Servers
+
+**Start the Backend:**
+```bash
+cd backend
+npm run dev
+```
+
+**Start the Frontend:**
+```bash
+cd frontend
+npm run dev
+```
+The frontend will be available at `http://localhost:3000`.
+
+---
+
+## ☁️ Deployment (Railway)
+
+This repository is structured as a monorepo. Follow these steps to deploy to Railway:
+
+### 1. Deploy Backend Service
+1. Create a new service from this repo on Railway.
+2. Set **Root Directory** to `backend`.
+3. Add the required Environment Variables (`MONGO_URI`, `JWT_SECRET`, etc.).
+4. Generate a public domain for the backend service.
+
+### 2. Deploy Frontend Service
+1. Create another service from the same repo.
+2. Set **Root Directory** to `frontend`.
+3. Add Environment Variable:
+   - `NEXT_PUBLIC_API_URL`: `https://your-backend-railway-domain.com/api`
+4. Generate a public domain for the frontend service.
+
+### 3. Final Configuration
+- Go back to the **Backend Service** and update the `FRONTEND_URL` environment variable to match your newly generated **Frontend Domain** to allow CORS.
