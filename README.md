@@ -15,6 +15,29 @@ A production-grade, full-stack team task manager built for the Ethara.AI Round 1
 - **Database:** MongoDB Atlas.
 - **Deployment:** Railway.
 
+
 ## Folder Structure
 - `/frontend` - Next.js application
 - `/backend` - Express.js API
+
+## Deployment to Railway
+
+This is a monorepo. To deploy to Railway:
+
+1. **Deploy Backend Service:**
+   - Create a new service from this repo.
+   - Set **Root Directory** to `backend`.
+   - Add Environment Variables:
+     - `MONGO_URI`: (Your MongoDB Atlas connection string)
+     - `JWT_SECRET`: (Any secure random string)
+     - `FRONTEND_URL`: (Your frontend domain after deploying step 2)
+
+2. **Deploy Frontend Service:**
+   - Create another service from this repo.
+   - Set **Root Directory** to `frontend`.
+   - Add Environment Variables:
+     - `NEXT_PUBLIC_API_URL`: (Your backend domain + `/api`)
+
+3. **Networking:**
+   - Ensure both services have "Generate Domain" enabled in the Networking tab.
+   - Update the `FRONTEND_URL` in the backend service with the domain generated for the frontend.
