@@ -30,9 +30,9 @@ function DashboardContent() {
       setLoading(true);
       if (user?.role === 'ADMIN') {
         const [dashRes, usersRes, projRes] = await Promise.all([
-          api.get("/dashboard"),
-          api.get("/users"),
-          api.get("/projects")
+          api.get("dashboard"),
+          api.get("users"),
+          api.get("projects")
         ]);
         setDashboardData(dashRes.data);
         setUsers(usersRes.data);
@@ -40,8 +40,8 @@ function DashboardContent() {
       } else {
         // If not admin, fetch their projects and tasks
         const [projRes, taskRes] = await Promise.all([
-          api.get("/projects"),
-          api.get("/tasks")
+          api.get("projects"),
+          api.get("tasks")
         ]);
         setProjects(projRes.data.projects);
         setTasks(taskRes.data.tasks);

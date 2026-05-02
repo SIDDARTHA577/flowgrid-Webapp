@@ -7,9 +7,14 @@ if (baseUrl && !baseUrl.startsWith('http') && !baseUrl.startsWith('/')) {
   baseUrl = `https://${baseUrl}`;
 }
 
-// Ensure it ends with /api if it's a full URL and missing the prefix
-if (baseUrl.startsWith('http') && !baseUrl.endsWith('/api') && !baseUrl.endsWith('/api/')) {
-  baseUrl = baseUrl.replace(/\/$/, '') + '/api';
+// Ensure it ends with /api/ (with trailing slash)
+if (baseUrl.startsWith('http')) {
+  baseUrl = baseUrl.replace(/\/$/, '');
+  if (!baseUrl.endsWith('/api')) {
+    baseUrl = baseUrl + '/api/';
+  } else {
+    baseUrl = baseUrl + '/';
+  }
 }
 
 const api = axios.create({

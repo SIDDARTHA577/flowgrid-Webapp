@@ -44,7 +44,7 @@ export function ProjectListAdmin({ projects, onProjectDeleted }: ProjectListAdmi
     
     setDeletingId(id);
     try {
-      await api.delete(`/projects/${id}`);
+      await api.delete(`projects/${id}`);
       onProjectDeleted();
     } catch (error) {
       console.error("Failed to delete project", error);

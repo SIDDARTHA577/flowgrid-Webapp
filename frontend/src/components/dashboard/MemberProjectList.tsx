@@ -35,7 +35,7 @@ export function MemberProjectList({ projects, tasks, onStatusUpdated }: MemberPr
   const handleStatusUpdate = async (taskId: string, newStatus: string) => {
     setUpdatingId(taskId);
     try {
-      await api.put(`/tasks/${taskId}`, { status: newStatus });
+      await api.put(`tasks/${taskId}`, { status: newStatus });
       onStatusUpdated();
     } catch (error) {
       console.error("Failed to update status", error);

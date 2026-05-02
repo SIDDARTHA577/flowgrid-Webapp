@@ -23,7 +23,7 @@ export function ActivityTimeline({ activities, onClearHistory }: ActivityTimelin
     if (!window.confirm("Are you sure you want to clear all activity history? This cannot be undone.")) return;
     setClearing(true);
     try {
-      await api.delete("/dashboard/activity");
+      await api.delete("dashboard/activity");
       if (onClearHistory) onClearHistory();
     } catch (err) {
       console.error(err);

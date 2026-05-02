@@ -36,7 +36,7 @@ export default function LoginPage() {
     setIsLoading(true);
     setError("");
     try {
-      const { data } = await api.post("/auth/login", values);
+      const { data } = await api.post("auth/login", values);
       setUser(data);
       router.push("/dashboard");
     } catch (err: any) {

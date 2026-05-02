@@ -61,7 +61,7 @@ export function TaskAssignment({ projects, users, onAssigned }: TaskAssignmentPr
     const fetchTasks = async () => {
       setLoadingTasks(true);
       try {
-        const { data } = await api.get(`/tasks?projectId=${projectId}`);
+        const { data } = await api.get(`tasks?projectId=${projectId}`);
         // Filter to show only unassigned tasks
         const unassigned = data.tasks.filter((t: any) => !t.assignedTo);
         setProjectTasks(unassigned);
@@ -101,7 +101,7 @@ export function TaskAssignment({ projects, users, onAssigned }: TaskAssignmentPr
       // Assign selected existing tasks
       for (const id of selectedTaskIds) {
         promises.push(
-          api.put(`/tasks/${id}`, {
+          api.put(`tasks/${id}`, {
             assignedTo,
             // Only update dueDate if one was provided in the form
             ...(dueDate && { dueDate }),
@@ -112,7 +112,7 @@ export function TaskAssignment({ projects, users, onAssigned }: TaskAssignmentPr
       // Create brand new task if checked
       if (createNew) {
         promises.push(
-          api.post("/tasks", {
+          api.post("tasks", {
             title,
             description,
             projectId,

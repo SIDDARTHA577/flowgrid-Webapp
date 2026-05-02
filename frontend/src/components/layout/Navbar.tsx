@@ -30,7 +30,7 @@ function NavbarContent() {
 
   const handleLogout = async () => {
     try {
-      await api.post("/auth/logout");
+      await api.post("auth/logout");
       logout();
       setDropdownOpen(false);
       router.push("/login");

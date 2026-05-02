@@ -47,7 +47,7 @@ export function CreateProject({ onCreated }: CreateProjectProps) {
     setSuccess("");
     
     try {
-      await api.post("/projects", { 
+      await api.post("projects", { 
         name, 
         description,
         startDate: startDate || undefined,

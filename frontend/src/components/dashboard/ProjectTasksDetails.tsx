@@ -22,7 +22,7 @@ export function ProjectTasksDetails({ projectId }: ProjectTasksDetailsProps) {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const { data } = await api.get(`/tasks?projectId=${projectId}`);
+        const { data } = await api.get(`tasks?projectId=${projectId}`);
         setTasks(data.tasks);
       } catch (error) {
         console.error("Failed to fetch tasks for project", error);

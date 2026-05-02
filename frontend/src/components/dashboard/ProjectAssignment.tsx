@@ -34,7 +34,7 @@ export function ProjectAssignment({ projects, users, onAssigned }: ProjectAssign
     setLoading(true);
     setError("");
     try {
-      await api.post(`/projects/${selectedProjectId}/invite`, { userId: selectedUserId });
+      await api.post(`projects/${selectedProjectId}/invite`, { userId: selectedUserId });
       onAssigned();
       setSelectedUserId("");
     } catch (err: any) {
