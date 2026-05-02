@@ -64,8 +64,9 @@ export function CreateProject({ onCreated }: CreateProjectProps) {
       onCreated();
       
       setTimeout(() => setSuccess(""), 3000);
-    } catch (err: any) {
-      setError(err.response?.data?.message || "Failed to create project");
+    } catch (err) {
+      const error = err as any;
+      setError(error.response?.data?.message || "Failed to create project");
     } finally {
       setLoading(false);
     }

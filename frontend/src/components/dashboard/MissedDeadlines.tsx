@@ -49,7 +49,7 @@ export function MissedDeadlines({ tasks }: MissedDeadlinesProps) {
                       {task.assignedTo?.name || 'Unassigned User'}
                     </p>
                     <p className="text-xs text-zinc-500 mt-0.5 truncate">
-                      Failed to update <span className="font-medium text-zinc-700">"{task.title}"</span> in <span className="font-medium text-indigo-600">{task.projectId?.name || 'Unknown Project'}</span>
+                      Failed to update <span className="font-medium text-zinc-700">&quot;{task.title}&quot;</span> in <span className="font-medium text-indigo-600">{task.projectId?.name || 'Unknown Project'}</span>
                     </p>
                   </div>
                   <div className="text-right flex-shrink-0">

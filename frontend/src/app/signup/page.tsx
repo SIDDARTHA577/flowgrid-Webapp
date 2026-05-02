@@ -48,7 +48,7 @@ export default function SignupPage() {
       special: /[^A-Za-z0-9]/.test(pass),
     };
     
-    let score = Object.values(checks).filter(Boolean).length;
+    const score = Object.values(checks).filter(Boolean).length;
     
     let label = "Weak";
     let color = "bg-rose-500";
@@ -88,8 +88,9 @@ export default function SignupPage() {
       });
       setUser(data);
       router.push("/dashboard");
-    } catch (err: any) {
-      setError(err.response?.data?.message || "Something went wrong. Please try again.");
+    } catch (err) {
+      const error = err as any;
+      setError(error.response?.data?.message || "Something went wrong. Please try again.");
     } finally {
       setIsLoading(false);
     }
