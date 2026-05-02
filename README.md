@@ -14,7 +14,7 @@ A production-grade, full-stack team task manager built for the **Ethara.AI Round
 ## 🛠️ Tech Stack
 
 ### **Frontend**
-- **Framework:** Next.js 16 (App Router) + React 19
+- **Framework:** Next.js 15 (App Router) + React 19
 - **Language:** TypeScript
 - **Styling:** Tailwind CSS v4, ShadCN UI
 - **State Management:** Zustand
